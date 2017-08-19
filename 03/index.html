@@ -6,9 +6,12 @@
 	<style>
 		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
 		:root{
-			--base:#ffc600;
-			--spacing:10px;
-			--blur:10px;
+			--base:#F6A180;
+			--brightness:100%;
+			--blur:0px;
+			--contrast:100%;
+			--grayscale:0%;
+			--saturate:100%;
 		}
 		body{
 			font-family: 'Playfair Display';
@@ -24,7 +27,7 @@
 			font-size: 1.8rem;
 			margin-top:3rem;
 			margin-bottom: 3rem;
-			letter-spacing: 0.3rem;
+			letter-brightness: 0.3rem;
 
 		}
 		label{
@@ -36,9 +39,9 @@
 			margin:0 auto;
 			margin-top: 3rem;
 			margin-bottom:3rem;
-			padding:var(--spacing);
+			padding:1rem;
 			background:var(--base);
-			filter:blur(var(--blur));
+			filter:blur(var(--blur)) brightness(var(--brightness)) contrast(var(--contrast)) grayscale(var(--grayscale)) saturate(var(--saturate));
 		}
 		.hl{
 			color:var(--base);
@@ -56,14 +59,23 @@
 	<h1 class="title">Update <em class='hl'>CSS Variables</em> with JS</h1>
 	
 	<div class="control">
-		<label for="spacing">Spacing</label>
-		<input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+		<label for="brightness">Brightness</label>
+		<input type="range" name="brightness" min="50" max="150" value="100" data-sizing="%">
 
 		<label for="blur">Blur</label>
-		<input type="range" name="blur" min="0" max="25" value="" data-sizing="px">
+		<input type="range" name="blur" min="0" max="25" value="0" data-sizing="px">
+
+		<label for="contrast">Contrast</label>
+		<input type="range" name="contrast" min="50" max="150" value="100" data-sizing="%">
+		
+		<label for="grayscale">Grayscale</label>
+		<input type="range" name="grayscale" min="0" max="100" value="0" data-sizing="%">
+
+		<label for="saturate">Saturate</label>
+		<input type="range" name="saturate" min="50" max="150" value="100" data-sizing="%">
 
 		<label for="base">Base Color</label>
-		<input type="color" name="base" value="#ffc600">
+		<input type="color" name="base" value="#F6A180">
 
 	</div>
 	<img src="https://unsplash.it/800/500/?random" alt="img">
