@@ -1,0 +1,84 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Update CSS Variables with JS</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+		:root{
+			--base:#ffc600;
+			--spacing:10px;
+			--blur:10px;
+		}
+		body{
+			font-family: 'Playfair Display';
+			text-align: center;
+			border:var(--base) 3rem solid;
+			height:100vh;
+			margin:0;
+			box-sizing: border-box;
+			overflow-y: hidden;
+		}
+		.title{
+			font-family:'Playfair Display', serif;
+			font-size: 1.8rem;
+			margin-top:3rem;
+			margin-bottom: 3rem;
+			letter-spacing: 0.3rem;
+
+		}
+		label{
+			font-family:'Josefin Sans';
+		}
+		img{
+			height:50%;
+			width:auto;
+			margin:0 auto;
+			margin-top: 3rem;
+			margin-bottom:3rem;
+			padding:var(--spacing);
+			background:var(--base);
+			filter:blur(var(--blur));
+		}
+		.hl{
+			color:var(--base);
+		}
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+		}
+
+	</style>
+</head>
+<body>
+
+	<h1 class="title">Update <em class='hl'>CSS Variables</em> with JS</h1>
+	
+	<div class="control">
+		<label for="spacing">Spacing</label>
+		<input type="range" name="spacing" min="10" max="200" value="10" data-sizing="px">
+
+		<label for="blur">Blur</label>
+		<input type="range" name="blur" min="0" max="25" value="" data-sizing="px">
+
+		<label for="base">Base Color</label>
+		<input type="color" name="base" value="#ffc600">
+
+	</div>
+	<img src="https://unsplash.it/800/500/?random" alt="img">
+	<div class='credit'>Day #3 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+	
+	<script>
+		const inputs = document.querySelectorAll('.control input');
+
+		function handleUpdate(){
+			const suffix = this.dataset.sizing || '';
+			document.documentElement.style.setProperty(`--${this.name}`,this.value + suffix)
+		}
+
+		inputs.forEach(input =>input.addEventListener('change',handleUpdate));
+		inputs.forEach(input =>input.addEventListener('mousemove',handleUpdate));
+	</script>
+</body>
+</html> 
