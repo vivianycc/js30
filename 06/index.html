@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Ajax Type Ahead</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+
+		body{
+			font-family: 'Playfair Display';
+			text-align: center;
+			border:black 3rem solid;
+			margin:0;
+			box-sizing: border-box;
+			display:flex;
+			flex-direction: column;
+			justify-content: center;
+			height:100vh;
+			
+		}
+		
+		form{
+			margin: 5rem;
+			flex:0 1 auto;
+			overflow-y: scroll;
+		}
+		input{
+			font-family: 'Playfair Display';
+			font-size: 30px;
+			width:50%;
+			padding:0.8rem;
+			text-align: center;
+		}
+		input:focus{
+			border:black 5px solid;
+			outline-offset:0;
+			outline:0;
+		}
+		
+		.suggestions{
+			list-style:  none;
+			width:50%;
+			text-align: center;
+			padding:0;
+			margin:0 auto;
+			margin-top:3rem;
+
+		}
+
+		.suggestions li{
+			border-bottom:1px solid black;
+			padding:0.2rem;
+			transition:background:0.2s;
+			display:flex;
+			justify-content: space-between;
+		}
+
+		.hl{
+			background: black;
+			color:white;
+		}
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+			margin-bottom: 3rem;
+		}
+	</style>
+</head>
+<body>
+	
+
+	<form class="search-form">
+		<input type="text" class="search" placeholder="City or State">
+		<ul class="suggestions">
+			<li>Filter for a city</li>
+			<li>or a state</li>
+		</ul>
+	</form>
+
+	<div class='credit'>Day #6 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+	
+
+
+	<script>
+		const endpoint = 'https://gist.githubusercontent.com/Miserlou/c5cd8364bf9b2420bb29/raw/2bf258763cdddd704f8ffd3ea9a3e81d25e2c6f6/cities.json';
+		const cities = [];
+
+		fetch(endpoint)
+			.then(blob => blob.json())
+			.then(data => cities.push(...data))
+
+		function findMatches(wordToMatch, cities){
+			return cities.filter(place =>{
+				// figure out if the city or state matches what was searched
+
+				const regex = new RegExp(wordToMatch,'gi');
+				return place.city.match(regex)	|| place.state.match(regex)		
+
+			});
+		}
+
+		function numberWithCommas(x){
+			return x.toString().replace(/\B(?=(\d{3})+(?!\d))/g,',')
+		}
+
+		function displayMatches(){
+			const matchArray = findMatches(this.value,cities);
+			const html = matchArray.map( place =>{
+				const regex = new RegExp(this.value,'gi');
+				const cityName = place.city.replace(regex, `<span class="hl">${this.value}</span>`)
+
+				const stateName = place.state.replace(regex, `<span class="hl">${this.value}</span>`)
+
+				return `
+						<li>
+							<span class ='name'>${cityName}, ${stateName}</span>
+							<span class="population"> ${numberWithCommas(place.population)}</span>
+						</li>
+						`
+			}).join('');
+			suggestions.innerHTML = html;
+			
+		}
+
+		const searchInput = document.querySelector('.search')
+		const suggestions = document.querySelector('.suggestions');
+		searchInput.addEventListener('change',displayMatches);
+		searchInput.addEventListener('keyup',displayMatches);
+	</script>
+
+</body>
+</html>
