@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Key Detection</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+
+		body{
+			text-align: center;
+			border:black 3rem solid;
+			margin:0;
+			box-sizing: border-box;
+			height:100vh;
+			display: flex;
+			justify-content: center;
+			flex-direction: column;
+
+			
+		}
+		.title{
+			font-family:'Playfair Display', serif;
+			text-align: center;
+			font-size: 6rem;
+			max-width:60rem;
+			margin:0 auto;
+			margin-top:10rem;
+			margin-bottom: 5rem;
+			letter-spacing: 0.1rem;
+		}
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+			margin-bottom: 3rem;
+		}
+	</style>
+	<script type="text/javascript" src="nyan.js"></script>
+</head>
+<body>
+	<div class="title">Press "nyan cat" and see what happens!</div>
+	<div class='credit'>Day #12 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+	<script>
+		
+		const pressed =[];
+		const secretCode ='nyan cat';
+		
+
+		window.addEventListener('keyup',(e)=>{
+			pressed.push(e.key);
+			pressed.splice(-secretCode.length - 1, pressed.length - secretCode.length);
+
+			if(pressed.join('').includes(secretCode)){
+				console.log('NYAN');
+				nyan();
+			}
+
+		})
+
+
+
+	</script>
+</body>
+</html>
