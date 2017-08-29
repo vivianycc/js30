@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Slide on Scroll</title>
+	<style>
+	@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+		html{
+			box-sizing: border-box;
+		}
+		body{
+			overflow-y: hidden;
+			width:6000px;
+			height:100vh;
+			margin:0;
+		}
+		.wrapper{
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+			height:100%;
+		}
+		.box{
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			transform: translateY(30%);
+			opacity:0;
+			width:600px;
+
+		}
+		.type{
+			font-size: 100px;
+			font-family: 'Playfair Display';
+			color:white;
+			text-align: center;
+			position: absolute;
+			margin:0;
+			transform: translateY(-50%);
+			opacity:0;
+
+		}
+		.box:hover>.type{
+			transform: translateY(0%);
+			transition: transform 0.3s ease-in-out,
+						opacity 1s ease-in;
+			opacity:1;
+
+		}
+		.box:hover>img{
+		 	filter: brightness(30%);
+			transition: all 0.3s ease-in-out;
+		}
+
+		.type, img{
+				transition: all 0.3s ease-in;
+		}
+		.active{
+			transform: translateY(0%);
+			transition: transform 0.5s ease-in-out,
+						opacity 1s ease-in;
+			opacity:1;
+		}
+
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size:1rem;
+			display: block;
+			margin:2rem;
+		    position: fixed;
+		    color: black;
+		    bottom: 0;
+		    right: 0;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="wrapper">
+		<div class="box">
+			<img src="img/mountain.jpeg" alt="Mountain">
+			<p class="type">Mountain</p>
+		</div>
+		<div class="box">
+			<img src="img/beach.jpeg" alt="Beach">
+			<p class="type">Beach</p>
+		</div>
+		<div class="box">
+			<img src="img/stars.jpeg" alt="Stars">
+			<p class="type">Stars</p>
+		</div>
+		<div class="box">
+			<img src="img/forest.jpeg" alt="Forest">
+			<p class="type">Forest</p>
+		</div>
+		<div class="box">
+			<img src="img/Lake.jpeg" alt="Lake">
+			<p class="type">Lake</p>
+		</div>
+		<div class="box">
+			<img src="img/sea.jpeg" alt="Sea">
+			<p class="type">Sea</p>
+		</div>
+	</div>
+	<div class='credit'>Day #12 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+
+	<script>
+		function debounce(func, wait = 20, immediate = true){
+			var timeout;
+			return function(){
+				var context = this, args = arguments;
+				var later = function(){
+					timeout = null;
+					if(!immediate) func.apply(context, args);
+				};
+				var callNow = immediate && !timeout;
+				clearTimeout(timeout);
+				timeout = setTimeout(later, wait);
+				if(callNow) func.apply(context, args);
+			};
+		};
+
+		const boxes = document.querySelectorAll('.box');
+		const types = document.querySelectorAll('.type');
+		function checkSlide(e){
+		
+			boxes.forEach(box=>{
+				const slideInAt = (window.scrollX + window.innerWidth)-box.offsetWidth/3;
+
+					// console.log(slideInAt);
+				const boxEnd = box.offsetLeft + box.offsetWidth;
+				// console.log(boxEnd);
+				// console.log(box.offsetLeft);
+
+				const isHalfShown = slideInAt > box.offsetLeft;
+				const isNotScrollPast = window.scrollX < boxEnd;
+
+				if(isHalfShown && isNotScrollPast){
+					box.classList.add('active');
+				}else{
+					box.classList.remove('active');
+				}
+			})
+		}
+
+		function activeType(e){
+			types.forEach(type=> {
+				box.classList.add('active');
+				console.log(e);
+			})
+		}
+		window.addEventListener('scroll',debounce(checkSlide));
+		window.addEventListener('animationstart', activeType);
+		//for chrome
+		var mouseWheelEvt = function (event) {
+		    if (document.body.doScroll){
+ 	       		document.body.doScroll(event.wheelDelta>0?"left":"right")
+ 	   		}else if ((event.wheelDelta || event.detail) > 0){
+ 	   			// document.body.scrollLeft -= 100;
+ 	   			document.body.scrollLeft -= 100;
+ 	   		}else{
+ 	   			 document.body.scrollLeft += 100;
+
+ 	   		}
+       
+    		return false;
+		}
+
+		//for firefox
+		var mouseWheelEvtF = function (event) {
+		    if (document.body.doScroll){
+ 	       		document.body.doScroll(event.detail>0?"left":"right")
+ 	   		}else if (event.detail > 0){
+ 	   			document.documentElement.scrollLeft -= 100;
+ 	   		}else{
+ 	   			 document.documentElement.scrollLeft += 100;
+ 	   		}
+       
+    		return false;
+		}
+		document.body.addEventListener("mousewheel", mouseWheelEvt);
+		window.addEventListener("DOMMouseScroll", mouseWheelEvtF);
+
+
+	</script>
+</body>
+</html>
