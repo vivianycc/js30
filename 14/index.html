@@ -76,7 +76,7 @@
     // and think we make a copy:
     // const captain = person;
     // captain.number = 99;
-    
+
     // how do we take a copy instead?
 
     const cap2 = Object.assign({},person, {number: 99});
@@ -102,7 +102,7 @@
 
     const dev = Object.assign({},wes);
 
-    const dev2 = JSON.parse(JSON.strinify(wes));
+    const dev2 = JSON.parse(JSON.stringify(wes));
   </script>
 
 </body>
