@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>CSS Text Shadow Mouse Move</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+
+		body{
+			text-align: center;
+			border:black 3rem solid;
+			margin:0;
+			box-sizing: border-box;
+			height:100vh;
+
+		}
+		.amazebox{
+			transform: translateY(-50%);
+			position:relative;
+			top:50%;
+		}
+
+		.amazeballs{
+			font-family:'Josefin Sans', serif;
+			text-align: center;
+			font-size: 6rem;
+			letter-spacing: 0.1rem;
+			margin:0;
+			text-transform: uppercase;
+		}
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+			bottom:4rem;
+			right:5%;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	
+	<div class="amazebox">
+		<h1 class="amazeballs">
+			Amazeballs!
+		</h1>
+	</div>
+	<div class='credit'>Day #16 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+
+	<script>
+		const box = document.querySelector('.amazebox');
+		const text = box.querySelector('.amazeballs');
+
+		const walk = 20; //20px;
+
+		function shadow(e){
+			const width = box.offsetWidth;
+			const height = box.offsetHeight;
+			// const{ offsetWidth :width, offsetHeight: height } = box;
+
+
+			let { offsetX: x, offsetY: y } = e;
+
+			if(this !== e.target ){
+				x = x + e.target.offsetLeft;
+				y = y + e.target.offsetTop;
+			}
+			
+			const xWalk = Math.round((x / width * walk ) - (walk / 2));
+			const yWalk = Math.round((y / height * walk ) - (walk / 2));
+			const hue = x/window.innerWidth*360;
+			const sat = y/window.innerHeight*1000+50;
+
+			text.style.textShadow = `${xWalk}px ${yWalk}px 0 hsl(${hue},${sat}%,50%)`;
+			
+		}
+
+		box.addEventListener('mousemove', shadow);
+		
+	</script>
+
+</body>
+</html>
