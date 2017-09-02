@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Sort Without Articles</title>
+</head>
+<body>
+
+  <style>
+  @import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300|Playfair+Display');
+
+    body {
+      border:black 3rem solid;
+      margin: 0;
+      font-family: 'Playfair Display';
+      background-size: cover;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      min-height: 100vh;
+
+    }
+    #bands {
+      list-style: inside square;
+      font-size: 16px;
+      background: white;
+      width: 500px;
+      margin: auto;
+      margin-top:100px;
+      margin-bottom: 100px;
+      padding: 0;
+      box-shadow: 0 0 0 20px rgba(0, 0, 0, 0.05);
+    }
+    #bands li {
+      border-bottom: 1px solid #efefef;
+      padding: 20px;
+    }
+    #bands li:last-child {
+      border-bottom: 0;
+    }
+    a {
+      color: #ffc600;
+      text-decoration: none;
+    }
+
+    .credit{
+      font-family: 'Josefin Sans', sans-serif;
+      font-size: 0.8rem;
+      display: block;
+      margin-bottom:5rem;
+    }
+  </style>
+
+  <ul id="bands"></ul>
+  <div class='credit'>Day #17 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+
+<script>
+
+
+  const bands = ['The Plot in You', 'The Devil Wears Prada', 'Pierce the Veil', 'Norma Jean', 'The Bled', 'Say Anything', 'The zMidway State', 'We Came as Romans', 'Counterparts', 'Oh, Sleeper', 'A Skylit Drive', 'Anywhere But Here', 'An Old Dog'];
+
+
+  const trim = function(a){
+    return a.replace(/^(An |A |The )/i,'').trim()
+  }
+
+  const sorted = bands.sort((a,b)=>trim(a) > trim(b) ? 1 : -1 );
+ 
+  document.querySelector('#bands').innerHTML =
+  sorted
+    .map(band => `<li>${band}</li>`)
+    .join('');
+
+
+
+</script>
+
+</body>
+</html>
