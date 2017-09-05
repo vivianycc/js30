@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Speech Recognition</title>
+	
+	<style>
+	@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300');
+	@import url(//fonts.googleapis.com/earlyaccess/cwtexming.css);
+
+		body{
+			font-family: 'Time', 'cwTeXMing';
+			margin:0;
+			border: black 3rem solid;
+			min-height: 100vh;
+			text-align: center;
+			box-sizing: border-box;
+		}
+		p{
+			
+			font-size:50px;
+		}
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+			bottom:4rem;
+			position: absolute;
+			right:5%;
+
+		}
+	</style>
+</head>
+<body>
+	<div class="words" contenteditable></div>
+	<div class='credit'>Day #20 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+	<script>
+		
+	window.SpeechRecognition = window.SpeechRecognition || window.webkitSpeechRecognition;
+
+	const recognition = new SpeechRecognition();
+	recognition.interimResults = true;
+	recognition.lang = 'zh-Hant-TW';
+
+	let p = document.createElement('p');
+	const words = document.querySelector('.words');
+	words.appendChild(p);
+
+
+	recognition.addEventListener('result', e => {
+		
+		const transcript = Array.from(e.results)
+			.map(result => result[0])
+			.map(result => result.transcript)
+			.join('')
+
+		p.textContent = transcript;
+		if(e.results[0].isFinal){
+			p = document.createElement('p');
+			words.appendChild(p);
+		}
+
+		if(transcript.includes('蘋果'|| 'apple' || 'Apple')){
+			p.append('🍎');
+		}
+
+
+	});
+
+	recognition.addEventListener('end',recognition.start)
+	recognition.start();
+	</script>
+</body>
+</html>
