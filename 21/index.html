@@ -67,7 +67,7 @@
 
 		navigator.geolocation.watchPosition((data)=>{
 			speed.textContent = data.coords.speed;
-			arrow.style.transform =`rotate${data.coords.heading}deg`;
+			arrow.style.transform =`rotate(${data.coords.heading}deg)`;
 		}, (err)=>{
 			console.err(err);
 			alert('You have to allow location');
