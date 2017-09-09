@@ -1,0 +1,100 @@
+@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300,700|Playfair+Display');
+
+html{
+	box-sizing:border-box;
+	background: #eeeeee;
+	font-family:'Playfair Display' ;
+	font-size: 20px;
+
+}
+
+body{
+	margin:0;
+}
+
+.site-wrap{
+	max-width:700px;
+	margin:70px auto;
+	margin-top:50px;
+	background: white;
+	padding:40px;
+	text-align: justify;
+	transform: scale(0.99);
+	transition:transform 0.5s;
+}
+
+.fixed-nav .site-wrap{
+	transform: scale(1);
+}
+
+header{
+	text-align:center;
+	height:50vh;
+	background: url(https://unsplash.it/1200/800/?1064) bottom center no-repeat;
+	background-size: cover;
+	display: flex;
+	align-items: center;
+	justify-content: center;
+}
+
+h1{
+	color:white;
+	font-size: 7vw;
+}
+
+nav{
+	font-family: 'Josefin Sans';
+	background: black;
+	top:0;
+	width:100%;
+	transition:all 0.5s;
+	position:relative;
+	z-index: 1;
+	box-shadow: :0 5px rgba(0,0,0,0.1);
+}
+
+.fixed-nav nav{
+	position:fixed;
+	box-shadow: :0 5px rgba(0,0,0,0.1);
+}
+
+nav ul{
+	margin:0;
+	padding:0;
+	list-style:none;
+	display:flex;
+}
+
+nav li{
+	flex:1;
+	text-align: center;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+}
+
+li.logo{
+	max-width: 0;
+	overflow:hidden;
+	background: white;
+	transition:all 0.5s;
+	font-weight: 700;
+	font-size: 30px;
+}
+
+.fixed-nav li.logo{
+	max-width: 500px;
+}
+
+li.logo a{
+	color:black;
+}
+
+nav a{
+	text-decoration: none;
+	padding:20px;
+	display: inline-block;
+	color:white;
+	transition: all 0.2s;
+	text-transform: uppercase;
+}
