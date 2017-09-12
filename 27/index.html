@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<title>Drag and Scroll</title>
+	<style>
+		@import url('https://fonts.googleapis.com/css?family=Josefin+Sans:300');
+
+		*{
+			box-sizing: border-box;
+		}
+		body{
+			margin:0;
+			height:100vh;
+			display: flex;
+			justify-content: space-around;
+			align-items: center;
+		}
+
+		.items{
+			width:100%;
+			transform: scale(0.999);
+			transition: all 0.3s;
+			opacity: 0.8;
+  			overflow-y: hidden;
+  			  white-space: nowrap;
+		}
+
+		.item{
+			display:inline-flex;
+			align-items: center;
+  			justify-content: center;
+			width: 300px;
+			height:300px;
+			background: mistyrose;
+			color:white;
+			text-align: center;
+			font-size: 100px;
+			margin: 10px;
+		}
+
+		.item:nth-child(2n){
+			background: lavender;
+		}
+		
+		.items.active{
+			transform: scale(1);
+			opacity: 1;
+			cursor: grabbing;
+			cursor: -webkit-grabbing;
+		}
+
+		.credit{
+			font-family: 'Josefin Sans', sans-serif;
+			font-size: 0.8rem;
+			display: block;
+			bottom:4rem;
+			right:5%;
+			position: absolute;
+		}
+	</style>
+</head>
+<body>
+	<div class="items">
+		<div class="item item1">01</div>
+		<div class="item item2">02</div>
+		<div class="item item3">03</div>
+		<div class="item item4">04</div>
+		<div class="item item5">05</div>
+		<div class="item item6">06</div>
+		<div class="item item7">07</div>
+		<div class="item item8">08</div>
+		<div class="item item9">09</div>
+		<div class="item item10">10</div>
+		<div class="item item11">11</div>
+		<div class="item item12">12</div>
+		<div class="item item13">13</div>
+		<div class="item item14">14</div>
+		<div class="item item15">15</div>
+		<div class="item item16">16</div>
+		<div class="item item17">17</div>
+		<div class="item item18">18</div>
+		<div class="item item19">19</div>
+		<div class="item item20">20</div>
+	</div>
+	<div class='credit'>Day #27 project from <a href="http://javascript30.com">Javascript30.com</a> by <strong>Vivian Chen</strong> </div>
+
+	<script>
+		
+		const slider = document.querySelector('.items');
+		let isDown = false;
+		let startX;
+		let scrollLeft;
+
+		slider.addEventListener('mousedown', (e) => {
+			isDown = true;
+			slider.classList.add('active');
+			startX = e.pageX -slider.offsetLeft;
+			scrollLeft = slider.scrollLeft;
+		});
+
+		slider.addEventListener('mouseleave', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+
+		slider.addEventListener('mouseup', () => {
+			isDown = false;
+			slider.classList.remove('active');
+		});
+
+		slider.addEventListener('mousemove', (e) => {
+			if(!isDown) return; //stop the fn from running
+			e.preventDefault();
+			const x = e.pageX - slider.offsetLeft;
+			const walk = (x - startX) * 5;
+			slider.scrollLeft = scrollLeft -walk;
+
+		});		
+
+
+	</script>
+</body>
+</html>
